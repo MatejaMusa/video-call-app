@@ -2,12 +2,12 @@ package com.personalproject.videocallapp.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestController
 @RequestMapping("/api/users")
@@ -17,12 +17,12 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     @PostMapping
-    public void register(User user) {
+    public void register(@RequestBody User user) {
         userService.register(user);
     }
 
     @PostMapping("/login")
-    public User login(User user) {
+    public User login(@RequestBody User user) {
         return userService.login(user);
     }
 
@@ -39,7 +39,7 @@ public class UserController {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handle(Exception e) {
         e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR)
                 .body(e.getMessage());
     }
 }

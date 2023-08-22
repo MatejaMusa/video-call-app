@@ -16,7 +16,7 @@ public class UserService {
     }
 
     public User login(User user) {
-        Integer userIndex = IntStream.range(0, USERS_LIST.size())
+        int userIndex = IntStream.range(0, USERS_LIST.size())
                 .filter(i -> USERS_LIST.get(i).getEmail().equals(user.getEmail()))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -30,7 +30,7 @@ public class UserService {
     }
 
     public void logout(String email) {
-        Integer userIndex = IntStream.range(0, USERS_LIST.size())
+        int userIndex = IntStream.range(0, USERS_LIST.size())
                 .filter(i -> USERS_LIST.get(i).getEmail().equals(email))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("User not found"));
